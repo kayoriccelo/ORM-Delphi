@@ -3,7 +3,7 @@ unit untRN;
 interface
 
 uses
-  System.Generics.Collections, untEnumerator, untDAO, untORM, System.Rtti;
+  System.Generics.Collections, untDAO, untCore, System.Rtti;
 
 type
 
@@ -74,9 +74,6 @@ end;
 
 function TRN.insert(AModel: TModel): boolean;
 begin
-  if not validate(etcdInsert, AModel) then
-    exit(False);
-
   Result := FDAO.insert(AModel);
 end;
 
@@ -97,9 +94,6 @@ end;
 
 function TRN.update(AModel: TModel): boolean;
 begin
-  if not validate(etcdUpdate, AModel) then
-    exit(False);
-
   Result := FDAO.update(AModel);
 end;
 
