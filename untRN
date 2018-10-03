@@ -21,9 +21,7 @@ type
     function select(AIndex: Integer): TModel; virtual;
     function list: TList<TModel>; overload; virtual;
     function list(AProperty: String; AValue: TValue): TList<TModel>; overload; virtual;
-
-    function validate(ATypeCrud: eTypeCrud; AModel: TModel): boolean; virtual;
-
+    
     constructor Create(AModelClass: TModelClass); virtual;
     destructor Destroy; virtual;
   end;
@@ -31,8 +29,6 @@ type
   TRNEmpresa = class(TRN)
   private
   public
-    function validate(ATypeCrud: eTypeCrud; AModel: TModel): boolean; override;
-
     constructor Create; overload;
   end;
 
@@ -57,28 +53,7 @@ type
 implementation
 
 uses
-  System.SysUtils, untValidation, untEntity;
-
-{ TRNEmpresa }
-
-constructor TRNEmpresa.Create;
-begin
-  Create(TEmpresa);
-end;
-
-function TRNEmpresa.validate(ATypeCrud: eTypeCrud; AModel: TModel): boolean;
-begin
-  Result := True;
-
-  case ATypeCrud of
-    etcdInsert, etcdUpdate:
-      begin
-        Result := TValidation.validaCNPJ(TEmpresa(AModel).Cnpj);
-      end;
-    etcdDelete:
-      ;
-  end;
-end;
+  System.SysUtils, untModels;
 
 { TRN }
 
@@ -128,9 +103,11 @@ begin
   Result := FDAO.update(AModel);
 end;
 
-function TRN.validate(ATypeCrud: eTypeCrud; AModel: TModel): boolean;
+{ TRNEmpresa }
+
+constructor TRNEmpresa.Create;
 begin
-  Result := True;
+  Create(TEmpresa);
 end;
 
 { TRNTanque }
