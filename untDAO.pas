@@ -4,7 +4,7 @@ unit untDAO;
 interface
 
 uses
-  System.Generics.Collections, FireDAC.Comp.Client, untEnumerator, untORM,
+  System.Generics.Collections, FireDAC.Comp.Client, untORM,
   System.Rtti;
 
 type
